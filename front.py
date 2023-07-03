@@ -24,14 +24,6 @@ def browse():
                             title="Choose a file",)
 
 
-colors = {
-    "bg-color": "#2C3333",
-    "fg-color": "#2E4F4F",
-    "main-clr": "#0E8388",
-    "fore-clr": "#CBE4DE"
-}
-
-
 def is_leap_year(year):
     year = int(year)
     if not(year % 4 == 0):
@@ -48,8 +40,8 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        """customtkinter.AppearanceModeTracker.set_appearance_mode("dark")
-        customtkinter.deactivate_automatic_dpi_awareness()"""
+        customtkinter.AppearanceModeTracker.set_appearance_mode("dark")
+        customtkinter.deactivate_automatic_dpi_awareness()
 
         self.geometry("500x500")
         self.resizable(False, False)
@@ -83,6 +75,7 @@ class App(customtkinter.CTk):
 
         self.year = customtkinter.CTkEntry(self.frame_2, placeholder_text="Year")
         self.year.grid(row=5, column=1, pady=10)
+        
 
         self.file_e = customtkinter.CTkEntry(self.frame_2, placeholder_text="Input file path")
         self.file_e.grid(row=6, column=1)
@@ -90,13 +83,8 @@ class App(customtkinter.CTk):
         self.file_b = customtkinter.CTkButton(self.frame_2, text="browse", command=browse)
         self.file_b.grid(row=7, column=1, pady=20)
 
-        self.submit_e = customtkinter.CTkButton(self.frame_2, text="Submit", command=self.submit)
-        self.submit_e.grid(row=10, column=1, pady=50)
-        print(self.submit_e.image_types())
-
-
-    def submit(self):
-        print(self.year)
+        self.submit_b = customtkinter.CTkButton(self.frame_2, text="Submit", command=self.submit)
+        self.submit_b.grid(row=10, column=1, pady=50)
 
 
     def is_leap_year(self, year):
