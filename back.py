@@ -1,6 +1,12 @@
-from .front import App
+from .front import App, MONTHS
 
 class AppScript(App):
     def __init__(self):
         super().__init__()
-        self
+    
+    def check_app(self):
+        if self.month.get() in MONTHS.keys():
+            print(self.month.get())
+    
+    def submit():
+        print("hi")

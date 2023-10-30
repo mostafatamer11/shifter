@@ -1,5 +1,6 @@
 import customtkinter
 from customtkinter import filedialog as file
+from numba import jit
 
 
 customtkinter.set_default_color_theme("D:/code/shift/theme.json")
@@ -13,30 +14,10 @@ def rem_ppl(): ...
 
 def date_config(): ...
 
-def browse():
-    global path
-    path = file.askopenfile(filetypes=(("csv files", "*.csv"),
-                            ("excel files", "*.xlsx"),
-                            ("excel files", "*.xlsm"),
-                            ("excel files", "*.xlsb"),
-                            ("excel files", "*.xltx"),
-                            ("all files", "*.*")),
-                            title="Choose a file",)
-
-
-def is_leap_year(year):
-    year = int(year)
-    if not(year % 4 == 0):
-        return False
-    elif not(year % 100 == 0):
-        return True
-    elif not(year % 400 == 0):
-        return False
-    else:
-        return True
 
 
 class App(customtkinter.CTk):
+    def submit(*args):...
     def __init__(self):
         super().__init__()
 
@@ -75,16 +56,17 @@ class App(customtkinter.CTk):
 
         self.year = customtkinter.CTkEntry(self.frame_2, placeholder_text="Year")
         self.year.grid(row=5, column=1, pady=10)
-        
+
 
         self.file_e = customtkinter.CTkEntry(self.frame_2, placeholder_text="Input file path")
         self.file_e.grid(row=6, column=1)
 
-        self.file_b = customtkinter.CTkButton(self.frame_2, text="browse", command=browse)
+        self.file_b = customtkinter.CTkButton(self.frame_2, text="browse", command=self.browse)
         self.file_b.grid(row=7, column=1, pady=20)
 
         self.submit_b = customtkinter.CTkButton(self.frame_2, text="Submit", command=self.submit)
         self.submit_b.grid(row=10, column=1, pady=50)
+
 
 
     def is_leap_year(self, year):
@@ -98,5 +80,20 @@ class App(customtkinter.CTk):
         else:
             return True
 
-app = App()
-app.mainloop()
+
+    def browse(*args):
+        global path
+        path = file.askopenfile(filetypes=(("csv files", "*.csv"),
+                                ("excel files", "*.xlsx"),
+                                ("excel files", "*.xlsm"),
+                                ("excel files", "*.xlsb"),
+                                ("excel files", "*.xltx"),
+                                ("all files", "*.*")),
+                                title="Choose a file",)
+
+def main():
+    if __name__ == "__main__":
+        app = App()
+        app.iconbitmap("calendar.ico")
+        app.mainloop()
+main()
