@@ -165,7 +165,24 @@ class AddFrame(ctk.CTkScrollableFrame):
 
             if isinstance(vications, list):
                 for indx, frame in enumerate(self.frames):
-                    temp = (frame.from_entry.get(), frame.to_entry.get())
+                    try:
+                        x1 = int(frame.from_entry.get())
+                        x2 = int(frame.from_box.get())
+                        y1 = int(frame.to_entry.get())
+                        y2 = int(frame.to_box.get())
+                    except ValueError:
+                        error_label = CTkMessage(self, title="Error", icon=ERROR,
+                                                message="Vication elemnts wasn't given right")
+                        flag = True
+                        error_label.show()
+                        x1, y1, x2, y2 = [0] * 4
+                    _from, _to = (((x1 * 2) + x2) - 2), (((y1 * 2) + y2) - 2)
+                    if _from > _to:
+                        error_label = CTkMessage(self, title="Error", icon=ERROR,
+                                                message="Vication elemnts wasn't given right")
+                        flag = True
+                        error_label.show()
+                    temp = (_from, _to)
                     if temp == (0, 0):
                         frame.destroy()
                         continue
@@ -201,7 +218,7 @@ class VicationFrame(ctk.CTkFrame):
 
     def widgets(self):
         self.rowconfigure(0, weight=1)
-        self.rowconfigure((1, 2), weight=3)
+        self.rowconfigure((1, 2, 3, 4), weight=3)
         self.columnconfigure(2, weight=1)
         self.columnconfigure((0, 1), weight=3)
 
@@ -214,11 +231,17 @@ class VicationFrame(ctk.CTkFrame):
         self.from_entry = IntSpinbox(self)
         self.from_entry.grid(row=1, column=1, sticky="we", columnspan=2, pady=10)
 
+        self.from_box = TypeBox(self, width=10)
+        self.from_box.grid(row=2, column=0, columnspan=2)
+
         self.to_label = ctk.CTkLabel(self, text="To:")
-        self.to_label.grid(row=2, column=0, sticky="w")
+        self.to_label.grid(row=3, column=0, sticky="w")
 
         self.to_entry = IntSpinbox(self)
-        self.to_entry.grid(row=2, column=1, sticky="we", columnspan=2, pady=10)
+        self.to_entry.grid(row=3, column=1, sticky="we", columnspan=2, pady=10)
+
+        self.to_box = TypeBox(self, width=10)
+        self.to_box.grid(row=4, column=0, columnspan=2)
 
     def remove(self):
         self.destroy()

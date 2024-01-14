@@ -29,7 +29,7 @@ class IntSpinbox(ctk.CTkFrame):
         self.add_button.grid(row=0, column=2, padx=(0, 3), pady=3)
 
         # default value
-        self.entry.insert(0, "0")
+        self.entry.insert(0, "1")
 
     def add_button_callback(self):
         try:
@@ -57,3 +57,24 @@ class IntSpinbox(ctk.CTkFrame):
         self.entry.delete(0, "end")
         self.entry.insert(0, str(int(value)))
 
+
+class TypeBox(ctk.CTkFrame):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+
+        # variable
+        self.var = ctk.Variable()
+
+        # buttons
+        self.night = ctk.CTkRadioButton(self, text="night", value=1, variable=self.var)
+        self.day = ctk.CTkRadioButton(self, text="day",value=0,  variable=self.var)
+
+        # packing
+        self.columnconfigure((1, 2), weight=1)
+        self.rowconfigure(1, weight=1)
+
+        self.night.grid(row=1, column=1)
+        self.day.grid(row=1, column=2)
+
+    def get(self):
+        return self.var.get()
