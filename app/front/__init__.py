@@ -6,9 +6,9 @@ from ..core import generate, file_gen
 
 
 class App(ctk.CTk):
-    def __init__(self):
+    def __init__(self, version):
         super().__init__()
-        self.version = 0.2
+        self.version = version
         self.title(f"Shifts v{self.version}")
         self.geometry("650x400")
         self.minsize(600, 400)

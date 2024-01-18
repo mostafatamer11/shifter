@@ -1,3 +1,3 @@
 import app.front
 
-app.front.App().run()
+app.front.App("0.3").run()
