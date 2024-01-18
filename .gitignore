@@ -1,3 +1,7 @@
 test.*
 .venv
 output
+*.iss
+*.exe
+build.py
+dist
