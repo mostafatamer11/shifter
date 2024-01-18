@@ -6,4 +6,4 @@ output
 build.py
 dist
 main.spec
-compile.py
+compiler.py
