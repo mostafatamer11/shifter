@@ -7,3 +7,4 @@ build.py
 dist
 main.spec
 compiler.py
+__pycache__
