@@ -1,5 +1,7 @@
 import datetime
 import pandas as pd
+import csv
+import os
 
 
 def isleap(Year):
@@ -71,17 +73,21 @@ def generate(vications:dict[str, list[tuple] | None], month_i:str | None):
     return shifts
 
 
-def file_gen(shifts, filepath):
+def file_gen2(shifts, filepath):
     global year, month
+    if month in MONTHS:
+        month = list(MONTHS.keys()).index(month) + 1
     year += 1 if month == 1 else 0
     new_date = datetime.date(year, month, 1)
     weekday = new_date.weekday()
     weekdays = [DAYS[(weekday + i) % 7] for i in range(len(shifts))]
     dates = [datetime.date(year, month, 1 + i).strftime("%d/%m/%Y") for i in range(len(shifts))]
-    df = pd.DataFrame()
-    df["name"] = shifts
-    df["shift"] = ["from 8:00 A.M GMT+2(cairo) to 8:00 P.M GMT+2(cairo)" if i%2 == 0 else "from 8:00 P.M GMT+2(cairo) to 8:00 A.M GMT+2(cairo)" for i, _ in enumerate(shifts)]
-    df["weekday"] = weekdays
-    df["date"] = dates
-    df.to_csv(filepath, index=False)
+    with open(filepath, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(['name', 'shift', 'weekday', 'date'])
+        for i, shift in enumerate(shifts):
+            shift_type = "from 8:00 A.M GMT+2(cairo) to 8:00 P.M GMT+2(cairo)"\
+                if i % 2 == 0 else "from 8:00 P.M GMT+2(cairo) to 8:00 A.M GMT+2(cairo)"
+            writer.writerow([shift, shift_type, weekdays[i], dates[i]])
+
 
