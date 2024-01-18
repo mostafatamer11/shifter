@@ -5,3 +5,4 @@ output
 *.exe
 build.py
 dist
+main.spec
