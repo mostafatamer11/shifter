@@ -2,7 +2,7 @@ import customtkinter as ctk
 from .widgets import *
 from tkinter.messagebox import Message as CTkMessage
 from tkinter.messagebox import ERROR
-from ..core import generate, file_gen
+from ..core import generate, file_gen2
 
 
 class App(ctk.CTk):
@@ -306,7 +306,7 @@ class GenerateFrame(ctk.CTkFrame):
                             message="File not given")
                 error_label.show()
             else:
-                file_gen(generate(self.master.main.vications, month), self.file_path.get())
+                file_gen2(generate(self.master.main.vications, month), self.file_path.get())
                 congrats = CTkMessage(self, title="Congrats", message="Done succesfully!")
                 congrats.show()
         self.generate = ctk.CTkButton(self, text="Generate file", command=generate_callback)
