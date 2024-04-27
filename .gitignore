@@ -8,3 +8,6 @@ dist
 main.spec
 compiler.py
 __pycache__
+
+front\__pycache__
+core\__pycache__
