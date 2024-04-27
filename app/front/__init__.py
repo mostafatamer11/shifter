@@ -7,6 +7,7 @@ from ..core import generate, file_gen2
 
 class App(ctk.CTk):
     def __init__(self, version):
+        print(f"welcome to shifter v{version}")
         super().__init__()
         self.version = version
         self.title(f"Shifts v{self.version}")
